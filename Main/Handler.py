@@ -11,9 +11,9 @@ from Board.Board import Board
 
 class Handler:
     def __init__(self, window_width, window_height):
-        self.display = Display(window_width, window_height)
-        self.keyboard = Keyboard()
         self.board = Board()
+        self.display = Display(window_width, window_height, self.board.return_board())
+        self.keyboard = Keyboard()
 
         self.reset = True
 
@@ -34,7 +34,7 @@ class Handler:
             return
         self.reset = False
         self.create_graph()
-        self.display.draw_screen(self.board.return_board())
+        self.display.draw_board(self.board.return_board())
 
     def create_graph(self):
         """
