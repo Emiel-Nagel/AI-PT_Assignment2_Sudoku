@@ -9,6 +9,8 @@ import pygame
 class Display:
     def __init__(self, window_width, window_height):
         self.screen = pygame.display.set_mode((window_width, window_height))
+        self.screen_divider = 1000
+        self.playable_area = (window_width, self.screen_divider)
 
         # variables for 60fps loop
         self.frame_rate = 60
@@ -16,8 +18,12 @@ class Display:
         self.elapsed_time = 0
         self.frame_count = 0
 
+        # board display variables
+        self.line_width = 10
+
         # fonts
         self.font_size = 40
+        self.font_size_board = 80
         self.font = pygame.font.SysFont('arialbold', self.font_size)
 
         # text variables
@@ -37,7 +43,7 @@ class Display:
         self.red = (200, 50, 50)
         self.green = (50, 200, 50)
         self.blue = (50, 50, 200)
-        self.background = self.white
+        self.background = self.black
 
     def display(self, interaction_type, interaction_step):
         """
@@ -51,12 +57,34 @@ class Display:
 
     def draw_screen(self, board):
         """
-        This method will draw the shapes on the screen
+        This method will draw the squares on the screen
         """
         self.screen.fill(self.background)
         screen_width, screen_height = self.screen.get_size()
-        #board_width = board.
+        board_width = len(board[0])
+        board_height = len(board)
+        square_size = (screen_width / board_width, self.screen_divider / board_height)
+        print(board_height)
+        for index in range(board_width - 1):
+            x_position = (index + 1) * square_size[0]
+            color = self.grey
+            if index % 3 == 2:
+                color = self.white
+            pygame.draw.line(self.screen, color=color, start_pos=(x_position, screen_height - self.screen_divider), end_pos=(x_position, screen_height), width=self.line_width)
+        for index in range(board_height - 1):
+            y_position = (index + 1) * square_size[1] + (screen_height - self.screen_divider)
+            color = self.grey
+            if index % 3 == 2:
+                color = self.white
+            pygame.draw.line(self.screen, color=color, start_pos=(0, y_position), end_pos=(screen_width, y_position), width=self.line_width)
         pygame.display.update()
+
+    def update_board(self, board_input):
+        """
+        This method will draw the squares on the screen
+        """
+        update_rect = []
+        pygame.display.update(update_rect)
 
     def draw_text(self, text_input):
         """

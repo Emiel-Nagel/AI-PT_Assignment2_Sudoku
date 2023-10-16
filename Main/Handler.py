@@ -26,13 +26,20 @@ class Handler:
         self.display.reset_screen()
         self.display.draw_text([self.interaction_type.return_state(), str(self.interaction_step)])
 
-    def create_graph(self):
+    def startup(self):
         """
-        This method will call to create a new graph
+        This method will start up the code
         """
         if not self.reset:
             return
         self.reset = False
+        self.create_graph()
+        self.display.draw_screen(self.board.return_board())
+
+    def create_graph(self):
+        """
+        This method will call to create a new graph
+        """
         self.board.load_new_board(1)
 
     def interact(self):

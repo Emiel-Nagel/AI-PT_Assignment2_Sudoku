@@ -10,7 +10,7 @@ from Handler import Handler
 
 caption = "Graph Algorithm Visualizer"
 window_width = 1000
-window_height = 1000
+window_height = 1200
 
 
 class Main:
@@ -36,7 +36,7 @@ class Main:
         """
         Method that calls the methods from other classes and handles the interaction
         """
-        self.handler.create_graph()
+        self.handler.startup()
         self.handler.interact()
         self.handler.draw()
 
