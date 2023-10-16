@@ -6,14 +6,16 @@ This class is an intermediate layer between main and the rest of the code and ha
 from Interaction.Display import Display
 from Interaction.Keyboard import Keyboard
 from Utilities.Enum_Variable import Enum_Variable
+from Board.Board import Board
 
 
 class Handler:
     def __init__(self, window_width, window_height):
         self.display = Display(window_width, window_height)
         self.keyboard = Keyboard()
+        self.board = Board()
 
-        self.reset = False
+        self.reset = True
 
         self.interaction_type = Enum_Variable(["Instant", "Step-by-Step", "Auto-run"])
         self.interaction_type.set_state("Step-by-Step")
@@ -28,9 +30,10 @@ class Handler:
         """
         This method will call to create a new graph
         """
-        if self.reset:
-            pass
+        if not self.reset:
+            return
         self.reset = False
+        self.board.load_new_board(1)
 
     def interact(self):
         """

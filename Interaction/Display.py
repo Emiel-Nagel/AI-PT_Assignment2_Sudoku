@@ -37,7 +37,7 @@ class Display:
         self.red = (200, 50, 50)
         self.green = (50, 200, 50)
         self.blue = (50, 50, 200)
-        self.background = (40, 20, 30)
+        self.background = self.white
 
     def display(self, interaction_type, interaction_step):
         """
@@ -47,16 +47,15 @@ class Display:
         self.elapsed_time = time.perf_counter() - self.previous_time
         if self.elapsed_time > 1 / self.frame_rate:
             self.previous_time = time.perf_counter()
-            self.draw_screen(interaction_type, interaction_step)
             self.frame_count += 1
 
-    def draw_screen(self, interaction_type, interaction_step):
+    def draw_screen(self, board):
         """
         This method will draw the shapes on the screen
         """
         self.screen.fill(self.background)
-
-        pygame.draw.circle(self.screen, self.red, (self.screen.get_width() / 2, self.screen.get_height() / 2), 400, 10)
+        screen_width, screen_height = self.screen.get_size()
+        #board_width = board.
         pygame.display.update()
 
     def draw_text(self, text_input):
