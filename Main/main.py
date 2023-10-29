@@ -12,7 +12,7 @@ caption = "Graph Algorithm Visualizer"
 window_width = 900
 window_height = 1100
 top_text_height = 200
-edge_thickness = 4
+edge_thickness = 6
 
 
 class Main:

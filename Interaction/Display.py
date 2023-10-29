@@ -103,9 +103,11 @@ class Display:
         self.screen.fill(self.black)
         pygame.display.update()
 
-    def draw_square(self, squares):
-        for square in squares:
-            square.display(self.screen, self.font_board)
+    def draw_squares(self, board):
+        squares = board.return_board()
+        for row in squares:
+            for square in row:
+                square.display(self.screen, self.font_board)
 
     def draw_text(self, text_input):
         """

@@ -13,7 +13,6 @@ class Board:
 
         self.evaluations = Evaluate()
         self.boards = []
-        self.update_boards = {}
 
         self.sibling_directory = os.path.join(os.path.dirname(__file__), 'Board_Configurations')
         for index in range(5):
@@ -37,19 +36,12 @@ class Board:
                 square = Square(self.window_width, self.window_height, self.top_text_height,
                                 x_index, y_index, self.edge_thickness, int(letter))
                 self.board[y_index].append(square)
-                dict_name = str(y_index) + str(x_index)
-                item = {dict_name: True}
-                self.update_boards.update(item)
 
     def update_board(self, mouse_coordinate):
         if mouse_coordinate is not None:
             mouse_x_board, mouse_y_board, prev_mouse_x_board, prev_mouse_y_board = mouse_coordinate
             self.board[mouse_y_board][mouse_x_board].hover(True)
             self.board[prev_mouse_y_board][prev_mouse_x_board].hover(False)
-            key = str(mouse_y_board) + str(mouse_x_board)
-            self.update_boards[key] = True
-            key = str(prev_mouse_x_board) + str(prev_mouse_y_board)
-            self.update_boards[key] = True
 
     def make_move(self, move):
         # move = tuple(x, y, number)
@@ -57,18 +49,6 @@ class Board:
             return
         board_x, board_y, value = move
         self.board[board_y][board_x].update_value(value)
-        key = str(board_y) + str(board_x)
-        self.update_boards[key] = True
-
-    def return_relevant_squares(self):
-        update_list = []
-        for key, value in self.update_boards.items():
-            if value is True:
-                board_y = int(int(key) / 10)
-                board_x = int(key) % 10
-                square = self.board[board_y][board_x]
-                update_list.append(square)
-        return update_list
 
     def return_board(self):
         return self.board

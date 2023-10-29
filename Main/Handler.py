@@ -49,7 +49,7 @@ class Handler:
         This method will handle all the interaction that happens between the user and the computer
         """
         self.board.update_board(self.mouse.return_mouse_coordinate())
-        self.display.draw_square(self.board.return_relevant_squares())
+        self.display.draw_squares(self.board)
         #self.check_key_pressed()
         #print(self.mouse.)
         #print(self.mouse.return_mouse_coordinate())
