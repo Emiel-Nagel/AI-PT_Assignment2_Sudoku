@@ -12,6 +12,7 @@ caption = "Graph Algorithm Visualizer"
 window_width = 900
 window_height = 1100
 top_text_height = 200
+edge_thickness = 4
 
 
 class Main:
@@ -21,7 +22,7 @@ class Main:
 
         self.runBool = True
 
-        self.handler = Handler(window_width, window_height, top_text_height)
+        self.handler = Handler(window_width, window_height, top_text_height, edge_thickness)
 
     def run(self):
         """

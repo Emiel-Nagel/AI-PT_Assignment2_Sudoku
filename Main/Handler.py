@@ -11,8 +11,8 @@ from Board.Board import Board
 
 
 class Handler:
-    def __init__(self, window_width, window_height, top_text_height):
-        self.board = Board()
+    def __init__(self, window_width, window_height, top_text_height, edge_thickness):
+        self.board = Board(window_width, window_height, top_text_height, edge_thickness)
         self.display = Display(window_width, window_height, self.board.return_board())
         self.keyboard = Keyboard()
         self.mouse = Mouse(window_width, window_height, top_text_height)
@@ -48,7 +48,8 @@ class Handler:
         """
         This method will handle all the interaction that happens between the user and the computer
         """
-        pass
+        self.board.update_board(self.mouse.return_mouse_coordinate())
+        self.display.draw_square(self.board.return_relevant_squares())
         #self.check_key_pressed()
         #print(self.mouse.)
         #print(self.mouse.return_mouse_coordinate())

@@ -99,6 +99,14 @@ class Display:
         self.screen.blit(text_display, text_rect)
         pygame.display.update(update_rect)
 
+    def setup_screen(self):
+        self.screen.fill(self.black)
+        pygame.display.update()
+
+    def draw_square(self, squares):
+        for square in squares:
+            square.display(self.screen, self.font_board)
+
     def draw_text(self, text_input):
         """
         This method will display all the necessary text on screen in the top-left corner.
