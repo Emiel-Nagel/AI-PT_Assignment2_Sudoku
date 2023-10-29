@@ -9,8 +9,9 @@ import pygame
 from Handler import Handler
 
 caption = "Graph Algorithm Visualizer"
-window_width = 1000
-window_height = 1200
+window_width = 900
+window_height = 1100
+top_text_height = 200
 
 
 class Main:
@@ -20,7 +21,7 @@ class Main:
 
         self.runBool = True
 
-        self.handler = Handler(window_width, window_height)
+        self.handler = Handler(window_width, window_height, top_text_height)
 
     def run(self):
         """
@@ -38,7 +39,7 @@ class Main:
         """
         self.handler.startup()
         self.handler.interact()
-        self.handler.draw()
+        #self.handler.draw()
 
 
 # Starts and runs the game

@@ -9,7 +9,7 @@ import pygame
 class Display:
     def __init__(self, window_width, window_height, board):
         self.screen = pygame.display.set_mode((window_width, window_height))
-        self.screen_divider = 1000
+        self.screen_divider = 900
         self.playable_area = (window_width, self.screen_divider)
 
         self.screen_width, self.screen_height = self.screen.get_size()

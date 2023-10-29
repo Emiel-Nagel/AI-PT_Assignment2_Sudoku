@@ -5,15 +5,17 @@ This class is an intermediate layer between main and the rest of the code and ha
 
 from Interaction.Display import Display
 from Interaction.Keyboard import Keyboard
+from Interaction.Mouse import Mouse
 from Utilities.Enum_Variable import Enum_Variable
 from Board.Board import Board
 
 
 class Handler:
-    def __init__(self, window_width, window_height):
+    def __init__(self, window_width, window_height, top_text_height):
         self.board = Board()
         self.display = Display(window_width, window_height, self.board.return_board())
         self.keyboard = Keyboard()
+        self.mouse = Mouse(window_width, window_height, top_text_height)
 
         self.reset = True
 
@@ -33,10 +35,10 @@ class Handler:
         if not self.reset:
             return
         self.reset = False
-        self.create_graph()
-        self.display.draw_board(self.board.return_board())
+        self.create_board()
+        # self.display.draw_board(self.board.return_board())
 
-    def create_graph(self):
+    def create_board(self):
         """
         This method will call to create a new graph
         """
@@ -46,7 +48,10 @@ class Handler:
         """
         This method will handle all the interaction that happens between the user and the computer
         """
-        self.check_key_pressed()
+        pass
+        #self.check_key_pressed()
+        #print(self.mouse.)
+        #print(self.mouse.return_mouse_coordinate())
 
     def check_key_pressed(self):
         """
