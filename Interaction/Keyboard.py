@@ -25,13 +25,18 @@ class Keyboard:
 
         space   44  backspace 42    enter 40
         """
-        pass
+        self.prev_active_keys = set(())
 
     def return_key(self):
+        """
+        This method will return the keys that are currently pressed, if they are different from the previous keys.
+        """
         pressed_keys = pygame.key.get_pressed()
         active_keys = set(())
-
         for key_constant, pressed in enumerate(pressed_keys):
             if pressed:
                 active_keys.add(key_constant)
-        return active_keys
+        if active_keys != self.prev_active_keys:
+            self.prev_active_keys = active_keys
+            return active_keys
+        return None

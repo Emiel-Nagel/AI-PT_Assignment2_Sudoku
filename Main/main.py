@@ -8,7 +8,7 @@ import pygame
 
 from Handler import Handler
 
-caption = "Graph Algorithm Visualizer"
+caption = "Sooodoookooo!!!"
 window_width = 900
 window_height = 1100
 top_text_height = 200
@@ -38,9 +38,10 @@ class Main:
         """
         Method that calls the methods from other classes and handles the interaction
         """
-        self.handler.startup()
         self.handler.interact()
-        #self.handler.draw()
+        self.handler.draw()
+        if self.handler.check_win():
+            self.runBool = False
 
 
 # Starts and runs the game
