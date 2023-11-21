@@ -10,9 +10,11 @@ from Handler import Handler
 
 caption = "Sooodoookooo!!!"
 window_width = 900
-window_height = 1100
-top_text_height = 200
+window_height = 1000
+top_text_height = 100
 edge_thickness = 6
+#player = "Human"
+player = "Algorithm"
 
 
 class Main:
@@ -22,7 +24,7 @@ class Main:
 
         self.runBool = True
 
-        self.handler = Handler(window_width, window_height, top_text_height, edge_thickness)
+        self.handler = Handler(window_width, window_height, top_text_height, edge_thickness, player)
 
     def run(self):
         """
@@ -33,15 +35,24 @@ class Main:
                 if event.type == pygame.QUIT:
                     self.runBool = False
             self.call()
+        self.finish_game()
 
     def call(self):
         """
         Method that calls the methods from other classes and handles the interaction
         """
-        self.handler.interact()
+        if player == "Human":
+            self.handler.interact()
+        elif player == "Algorithm":
+            self.handler.algorithm_solve()
         self.handler.draw()
         if self.handler.check_win():
             self.runBool = False
+
+    def finish_game(self):
+        """
+        Method that finishes the game after a sudoku has been filled out
+        """
 
 
 # Starts and runs the game

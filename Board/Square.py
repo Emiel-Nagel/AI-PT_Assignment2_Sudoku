@@ -10,8 +10,9 @@ class Square:
         width = square_width - edge_thickness
         height = square_height - edge_thickness
         self.rect = pygame.Rect(x_top_left, y_top_left, width, height)
+        self.board_coordinate = (board_x, board_y)
 
-        self.value = value
+        self.value = [value]
         self.white = (255, 255, 255)
         self.black = (0, 0, 0)
         self.green = (50, 200, 50)
@@ -43,7 +44,8 @@ class Square:
         if not self.update:
             return
         screen.fill(self.colour)
-        text = str(self.value).replace("0", " ")
+        value = self.value[0]
+        text = str(value).replace("0", " ")
         text_display = font.render(text, True, self.black)
         text_rect = text_display.get_rect()
         text_rect.center = (self.rect[0] + self.rect[2] / 2, self.rect[1] + self.rect[3] / 2)

@@ -51,6 +51,7 @@ class Board:
         """
         This method will make a move on the board.
         """
+        # move is a tuple: (x_coordinate, y_coordinate, value)
         if not self.evaluations.check_valid_move(self.board, move):
             return False
         board_x, board_y, value = move
@@ -73,7 +74,7 @@ class Board:
         """
         This method will check if the game has been won.
         """
-        return self.evaluations.check_win(self.board)
+        return self.evaluations.valid_solution(self.board)
 
     def return_board(self):
         """

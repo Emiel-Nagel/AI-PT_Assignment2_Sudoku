@@ -1,3 +1,6 @@
+from Evaluations.Constraints import Constraints as cs
+
+
 class Evaluate:
     def __init__(self):
         self.areas = {
@@ -17,45 +20,40 @@ class Evaluate:
         This method will check if the move is valid.
         Rules: No duplicate numbers in the same row, column or domain.
         """
-        valid = True
         board_x, board_y, value = move
         if board[board_y][board_x].value != 0:
-            valid = False
-        if not self.check_correspondence(board, move, "Horizontal"):
-            valid = False
-        if not self.check_correspondence(board, move, "Vertical"):
-            valid = False
-        if not self.check_correspondence(board, move, "Domain"):
-            valid = False
-        return valid
+            return False
+        if not self.check_correspondence(board, move):
+            return False
+        return True
 
-    def check_correspondence(self, board, move, direction):
+    def check_correspondence(self, board, move):
         """
-        This method will check if the move is valid in the given direction.
+        This method will check if the move is valid in all directions.
         Rules: No duplicate numbers in the same row, column or domain.
         """
         board_x, board_y, value = move
         value += 1
-        if direction == "Horizontal":
-            for square_index in range(9):
-                if board[board_y][square_index].value == value:
-                    return False
-        if direction == "Vertical":
-            for square_index in range(9):
-                if board[square_index][board_x].value == value:
-                    return False
-        if direction == "Domain":
-            for square_index in self.areas[(board_x // 3) + 3 * (board_y // 3) + 1]:
-                if board[square_index[0]][square_index[1]].value == value:
-                    return False
+        for square_index in range(9):
+            if board[board_y][square_index].value == value:
+                return False
+        for square_index in range(9):
+            if board[square_index][board_x].value == value:
+                return False
+        for square_index in self.areas[(board_x // 3) + 3 * (board_y // 3) + 1]:
+            if board[square_index[0]][square_index[1]].value == value:
+                return False
         return True
 
-    def check_win(self, board):
+    def valid_solution(self, board):
         """
-        This method will check if the game has been won.
+        This method will check if the game has been won/if a valid solution has been reached.
         """
         for row in board:
             for square in row:
                 if square.value == 0:
+                    return False
+                move = (square.board_coordinate[0], square.board_coordinate[1], square.value)
+                if not self.check_correspondence(board, move):
                     return False
         return True
