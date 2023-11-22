@@ -7,24 +7,31 @@ The code is basically that you can close the program cleanly when you click on t
 import pygame
 
 from Handler import Handler
+from Output.Excel_Writer import Excel_Writer
 
 caption = "Sooodoookooo!!!"
 window_width = 900
 window_height = 1000
 top_text_height = 100
 edge_thickness = 6
+
+board_tests = [1, 2, 3, 4, 5]
+heuristic_tests = []
+test = False
+
 #player = "Human"
 player = "Algorithm"
 
 
 class Main:
-    def __init__(self):
+    def __init__(self, sudoku_number=2, heuristic="None"):
         pygame.init()
         pygame.display.set_caption(caption)
 
         self.runBool = True
+        self.run_algorithm = True
 
-        self.handler = Handler(window_width, window_height, top_text_height, edge_thickness, player)
+        self.handler = Handler(window_width, window_height, top_text_height, edge_thickness, player, sudoku_number, heuristic)
 
     def run(self):
         """
@@ -35,7 +42,6 @@ class Main:
                 if event.type == pygame.QUIT:
                     self.runBool = False
             self.call()
-        self.finish_game()
 
     def call(self):
         """
@@ -43,19 +49,27 @@ class Main:
         """
         if player == "Human":
             self.handler.interact()
+            if self.handler.check_win():
+                self.runBool = False
         elif player == "Algorithm":
-            self.handler.algorithm_solve()
+            if self.run_algorithm:
+                if self.handler.algorithm_solve():
+                    if self.handler.check_win():
+                        print("Victory!")
+                self.run_algorithm = False
         self.handler.draw()
-        if self.handler.check_win():
-            self.runBool = False
-
-    def finish_game(self):
-        """
-        Method that finishes the game after a sudoku has been filled out
-        """
 
 
 # Starts and runs the game
 if __name__ == "__main__":
-    theMain = Main()
-    theMain.run()
+    if test:
+        writer = Excel_Writer()
+        for board in board_tests:
+            for heuristic in heuristic_tests:
+                theMain = Main(board, heuristic)
+                theMain.run()
+                writer.append_data(theMain.handler.data)
+        writer.fill_out_file()
+    else:
+        theMain = Main()
+        theMain.run()

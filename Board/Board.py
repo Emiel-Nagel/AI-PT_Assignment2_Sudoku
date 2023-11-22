@@ -1,6 +1,6 @@
 import os
 
-from Board.Square import Square
+from Board.Field import Field
 from Evaluations.Evaluate import Evaluate
 
 
@@ -16,7 +16,7 @@ class Board:
 
         self.sibling_directory = os.path.join(os.path.dirname(__file__), 'Board_Configurations')
         for index in range(5):
-            filepath = "\Sudoku" + str(index) + ".txt"
+            filepath = "\Sudoku" + str(index + 1) + ".txt"
             self.boards.append(filepath)
         self.board = []
         self.prev_moves = []
@@ -26,7 +26,7 @@ class Board:
         """
         This method will load a new board.
         """
-        file = open(str(self.sibling_directory + self.boards[board_state]), mode="r")
+        file = open(str(self.sibling_directory + self.boards[board_state - 1]), mode="r")
         lines = file.readlines()
         file.close()
         self.board = []
@@ -35,9 +35,9 @@ class Board:
             for x_index, letter in enumerate(line):
                 if letter == '\n':
                     continue
-                square = Square(self.window_width, self.window_height, self.top_text_height,
+                field = Field(self.window_width, self.window_height, self.top_text_height,
                                 x_index, y_index, self.edge_thickness, int(letter))
-                self.board[y_index].append(square)
+                self.board[y_index].append(field)
 
     def update_board(self, mouse_coordinate):
         """
@@ -69,6 +69,14 @@ class Board:
         board_x, board_y, value = self.prev_moves.pop(-1)
         self.board[board_y][board_x].update_value(0)
         return True
+
+    def settle_domains(self):
+        """
+        This method will settle the domains of the fields.
+        """
+        for row in self.board:
+            for field in row:
+                field.value = field.domain[0]
 
     def check_win(self):
         """

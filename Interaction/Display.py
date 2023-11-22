@@ -27,7 +27,7 @@ class Display:
         self.text_left_border = 20
         self.text_top_border = 20
         self.text_vertical_separation = self.font_size
-        self.text_fields = ["Interaction Type: ", "Step: "]
+        self.text_fields = ["Player: ", "Step: "]
         self.text_rect_previous = []
         # initialize text_rect_previous list
         for i in range(len(self.text_fields)):
@@ -42,14 +42,14 @@ class Display:
         self.blue = (50, 50, 200)
         self.background = self.black
 
-    def draw_squares(self, board):
+    def draw_fields(self, board):
         """
-        This method will display all the squares on the board.
+        This method will display all the fields on the board.
         """
-        squares = board.return_board()
-        for row in squares:
-            for square in row:
-                square.display(self.screen, self.font_board)
+        fields = board.return_board()
+        for row in fields:
+            for field in row:
+                field.display(self.screen, self.font_board)
 
     def draw_text(self, text_input):
         """
