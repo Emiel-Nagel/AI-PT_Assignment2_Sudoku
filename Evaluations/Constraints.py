@@ -14,6 +14,9 @@ class Constraints:
         self.standard_domain = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     def horizontal_neighbours(self, board, x_coordinate, y_coordinate):
+        """
+        This method will find the horizontal constraining neighbours of a given field.
+        """
         neighbours = []
         for board_x in range(9):
             if board_x == x_coordinate:
@@ -22,6 +25,9 @@ class Constraints:
         return neighbours
 
     def vertical_neighbours(self, board, x_coordinate, y_coordinate):
+        """
+        This method will find the vertical constraining neighbours of a given field.
+        """
         neighbours = []
         for board_y in range(9):
             if board_y == y_coordinate:
@@ -30,6 +36,9 @@ class Constraints:
         return neighbours
 
     def area_neighbours(self, board, x_coordinate, y_coordinate):
+        """
+        This method will find constraining neighbours of a given field in its 3x3 area.
+        """
         neighbours = []
         for board_x, board_y in self.areas[(x_coordinate // 3) + 3 * (y_coordinate // 3) + 1]:
             if board_x == x_coordinate and board_y == y_coordinate:
@@ -38,7 +47,10 @@ class Constraints:
         return neighbours
 
     def create_variable(self, board, x_coordinate, y_coordinate):
+        """
+        This method will create a variable for the AC-3 algorithm.
+        """
         square = board[y_coordinate][x_coordinate]
-        if square.value == [0]:
-            square.value = self.standard_domain
+        if square.value == 0:
+            square.domain = self.standard_domain
         return x_coordinate, y_coordinate

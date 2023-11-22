@@ -16,11 +16,12 @@ class Excel_Writer:
         }
         self.delimiter = ';'
 
-    def append_data(self, datatype, data):
+    def append_data(self, data):
         """
         This method appends output data
         """
-        self.data[datatype] += data + self.delimiter
+        for key in data:
+            self.data[key] += data[key]
 
     def fill_out_file(self):
         """

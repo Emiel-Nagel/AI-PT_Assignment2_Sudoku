@@ -27,7 +27,7 @@ class Display:
         self.text_left_border = 20
         self.text_top_border = 20
         self.text_vertical_separation = self.font_size
-        self.text_fields = ["Interaction Type: ", "Step: "]
+        self.text_fields = ["Player: ", "Step: "]
         self.text_rect_previous = []
         # initialize text_rect_previous list
         for i in range(len(self.text_fields)):
