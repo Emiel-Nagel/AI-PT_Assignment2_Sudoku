@@ -87,13 +87,14 @@ class Handler:
         This method lets the algorithm solve the sudoku
         """
         self.algorithm.establish_arcs(self.board.return_board())
-        victory = self.algorithm.fit_constraints()
-        if not victory:
+        finished = self.algorithm.fit_constraints()
+        if not finished:
             print("This sudoku is unsolvable")
             self.data["Victory"] = "No"
             self.data["Emptied Queue"] = "No"
             return False
         self.board.settle_domains()
+        self.board.print_board()
         self.data["Emptied Queue"] = "Yes"
         return True
 

@@ -89,3 +89,13 @@ class Board:
         This method will return the board.
         """
         return self.board
+
+    def print_board(self):
+        """
+        This method will print the board.
+        """
+        for row in self.board:
+            text = ""
+            for field in row:
+                text += str(field.domain)
+            print(text)

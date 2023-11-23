@@ -5,7 +5,8 @@ from Evaluations.Heuristics import Heuristics
 class AC3:
     def __init__(self, heuristic):
         self.constraints = Constraints()
-        self.heuristics = Heuristics(heuristic)
+        self.heuristics = Heuristics()
+        self.used_heuristic = heuristic
         self.queue = []
         self.evaluation_count = 0
 
@@ -31,8 +32,7 @@ class AC3:
                     first_variable.neighbours.append(second_variable)
                     arc = self.Arc(first_variable, second_variable)
                     if not self.check_for_duplicates(arc):
-                        self.queue.append(arc)
-        #self.heuristics.minimum_remaining_values(self.queue)
+                        self.insert_by_heuristic(arc)
 
     def find_neighbours(self, board, x_coordinate, y_coordinate):
         """
@@ -54,6 +54,22 @@ class AC3:
                 return True
         return False
 
+    def insert_by_heuristic(self, insert_arc):
+        """
+        This method will insert the given arc into the queue following the heuristics.
+        """
+        match self.used_heuristic:
+            case "None":
+                self.queue.append(insert_arc)
+            case "MRV":
+                self.queue = self.heuristics.minimum_remaining_values(self.queue, insert_arc)
+            case "PTFF":
+                self.queue = self.heuristics.priority_to_filled_fields(self.queue, insert_arc)
+            case "FNRA":
+                self.queue = self.heuristics.filter_non_revisable_arcs(self.queue, insert_arc)
+            case "MCV":
+                self.queue = self.heuristics.most_constraining_variable(self.queue, insert_arc)
+
     def fit_constraints(self):
         """
         This method will solve the constraint problem following the AC-3 algorithm.
@@ -68,7 +84,7 @@ class AC3:
                         continue
                     new_arc = self.Arc(neighbour, arc.first_variable)
                     if not self.check_for_duplicates(new_arc):
-                        self.queue.append(new_arc)
+                        self.insert_by_heuristic(new_arc)
         return True
 
     def revise(self, arc):

@@ -1,6 +1,3 @@
-from Evaluations.Constraints import Constraints as cs
-
-
 class Evaluate:
     def __init__(self):
         self.areas = {
@@ -35,13 +32,23 @@ class Evaluate:
         board_x, board_y, value = move
         value += 1
         for square_index in range(9):
+            if square_index == board_x:
+                continue
             if board[board_y][square_index].value == value:
+                print(f"{board_x},{board_y},{value},Horizontal Lose!!")
+                print(board[board_y][board_x].value)
                 return False
         for square_index in range(9):
+            if square_index == board_y:
+                continue
             if board[square_index][board_x].value == value:
+                print(f"{board_x},{board_y},Vertical Lose!!")
                 return False
         for square_index in self.areas[(board_x // 3) + 3 * (board_y // 3) + 1]:
+            if square_index[0] == board_x and square_index[1] == board_y:
+                continue
             if board[square_index[0]][square_index[1]].value == value:
+                print(f"{board_x},{board_y},Area Lose!!")
                 return False
         return True
 

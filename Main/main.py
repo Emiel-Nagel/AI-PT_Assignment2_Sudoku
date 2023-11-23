@@ -16,7 +16,7 @@ top_text_height = 100
 edge_thickness = 6
 
 board_tests = [1, 2, 3, 4, 5]
-heuristic_tests = []
+heuristic_tests = ["None", "MRV", "PTFF", "FNRA", "MCV"]
 test = False
 
 #player = "Human"
@@ -24,7 +24,7 @@ player = "Algorithm"
 
 
 class Main:
-    def __init__(self, sudoku_number=2, heuristic="None"):
+    def __init__(self, sudoku_number=1, heuristic="FNRA"):
         pygame.init()
         pygame.display.set_caption(caption)
 
